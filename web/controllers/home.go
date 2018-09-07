@@ -5,15 +5,18 @@ import (
 )
 
 func (app *Application) HomeHandler(w http.ResponseWriter, r *http.Request) {
-	value, err := app.Fabric.Query("hello")
+	key := "hello"
+	value, err := app.Fabric.Query(key)
 	if err != nil {
 		http.Error(w, "Unable to query the blockchain", 500)
 	}
 
 	data := &struct {
-		Hello string
+		Key   string
+		Value string
 	}{
-		Hello: value,
+		Key:   key,
+		Value: value,
 	}
 	app.renderTemplate(w, r, "home.html", data)
 }
