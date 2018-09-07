@@ -8,7 +8,7 @@ import (
 )
 
 func Serve(app *controllers.Application) {
-	fs := http.FileServer(http.Dir(app.Fabric.WebRoot + "/web/assets"))
+	fs := http.FileServer(http.Dir(app.WebRoot + "/web/assets"))
 	http.Handle("/assets/", http.StripPrefix("/assets/", fs))
 
 	http.HandleFunc("/home.html", app.HomeHandler)
@@ -18,6 +18,6 @@ func Serve(app *controllers.Application) {
 		http.Redirect(w, r, "/home.html", http.StatusTemporaryRedirect)
 	})
 
-	fmt.Printf("Listening (http://localhost:%d/) ...\n", app.Fabric.WebPort)
-	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", app.Fabric.WebPort), nil))
+	fmt.Printf("Listening (http://localhost:%d/) ...\n", app.WebPort)
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", app.WebPort), nil))
 }
