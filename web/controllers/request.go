@@ -24,5 +24,5 @@ func (app *Application) RequestHandler(w http.ResponseWriter, r *http.Request) {
 		data.Success = true
 		data.Response = true
 	}
-	renderTemplate(w, r, "request.html", data)
+	app.renderTemplate(w, r, "request.html", data)
 }
