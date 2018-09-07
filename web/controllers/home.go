@@ -5,7 +5,7 @@ import (
 )
 
 func (app *Application) HomeHandler(w http.ResponseWriter, r *http.Request) {
-	helloValue, err := app.Fabric.QueryHello()
+	value, err := app.Fabric.Query("hello")
 	if err != nil {
 		http.Error(w, "Unable to query the blockchain", 500)
 	}
@@ -13,7 +13,7 @@ func (app *Application) HomeHandler(w http.ResponseWriter, r *http.Request) {
 	data := &struct {
 		Hello string
 	}{
-		Hello: helloValue,
+		Hello: value,
 	}
 	renderTemplate(w, r, "home.html", data)
 }

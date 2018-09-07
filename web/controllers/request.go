@@ -15,10 +15,10 @@ func (app *Application) RequestHandler(w http.ResponseWriter, r *http.Request) {
 		Response:      false,
 	}
 	if r.FormValue("submitted") == "true" {
-		helloValue := r.FormValue("hello")
-		txid, err := app.Fabric.InvokeHello(helloValue)
+		value := r.FormValue("hello")
+		txid, err := app.Fabric.Invoke("hello", value)
 		if err != nil {
-			http.Error(w, "Unable to invoke hello in the blockchain", 500)
+			http.Error(w, "Unable to invoke in the blockchain", 500)
 		}
 		data.TransactionId = txid
 		data.Success = true

@@ -3,10 +3,11 @@ package web
 import (
 	"fmt"
 	"github.com/Blockdaemon/hlf-webapp/web/controllers"
+	"log"
 	"net/http"
 )
 
-func Serve(app *controllers.Application) {
+func Serve(app *controllers.Application, port int) {
 	fs := http.FileServer(http.Dir("web/assets"))
 	http.Handle("/assets/", http.StripPrefix("/assets/", fs))
 
@@ -17,6 +18,6 @@ func Serve(app *controllers.Application) {
 		http.Redirect(w, r, "/home.html", http.StatusTemporaryRedirect)
 	})
 
-	fmt.Println("Listening (http://localhost:3000/) ...")
-	http.ListenAndServe(":3000", nil)
+	fmt.Printf("Listening (http://localhost:%d/) ...\n", port)
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", port), nil))
 }
