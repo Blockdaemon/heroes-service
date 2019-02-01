@@ -25,7 +25,7 @@ func (app *Application) RequestHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	if r.FormValue("submitted") == "true" {
 		value := r.FormValue(key)
-		txid, err := app.Fabric.Invoke(key, value)
+		txid, err := app.Fabric.InvokeString(key, value)
 		if err != nil {
 			http.Error(w, "Unable to invoke in the blockchain", 500)
 		}
